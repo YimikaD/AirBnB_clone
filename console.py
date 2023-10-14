@@ -45,6 +45,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """Prints the str rep of an instance"""
+        
         if line == "" or line is None:
             print("** class name missing **")
         else:
@@ -62,6 +63,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """Deletes an instance """
+        
         if line == "" or line is None:
             print("** class name missing **")
         else:
