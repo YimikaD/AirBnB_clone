@@ -18,7 +18,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, line):
         """To Exit program"""
 
-        retun True
+        return True
 
     def do_EOF(self, line):
         """The End Of File character"""
