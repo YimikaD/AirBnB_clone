@@ -20,61 +20,64 @@ class HBNBCommand(cmd.Cmd):
 
         retun True
 
-        def do_EOF(self, line):
-            """The End Of File character"""
+    def do_EOF(self, line):
+        """The End Of File character"""
 
-            print()
-            return True
+        print()
+        return True
 
-        def emptyline(self):
-            """Dosen't execute anything on ENTER"""
+    def emptyline(self):
+        """Dosen't execute anything on ENTER"""
 
-            pass
+        pass
 
-        def do_create(self, line):
-            """Creates new instance of BaseModel"""
+    def do_create(self, line):
+        """Creates new instance of BaseModel"""
 
-            if line == '':
-                print("** class name missing **")
-            elif line not in HBNBCommand.classnames():
+        if line == "" or line is None:
+            print("** class name missing **")
+        elif line not in HBNBCommand.classnames():
+            print("** class doesn't exist **")
+        else:
+            objdict = storage.classes()[line]()
+            objdict.save()
+            print(objdict.id)
+
+    def do_show(self, line):
+        """Prints the str rep of an instance"""
+        if line == "" or line is None:
+            print("** class name missing **")
+        else:
+            line_list = line.split(' ')
+            if line_list[0] not in storage.classes():
                 print("** class doesn't exist **")
+            elif len(line_list) < 2:
+                print("** instance id missing **")
             else:
-                objdict = eval(line)()
-                objdict.save()
-                print(objdict.id)
+                set_obj = "{}.{}".format(words[0], words[1])
+                if set_obj not in storage.all():
+                    print("** no instance found **")
+                else:
+                    print(storage.all()[set_obj])
 
-                def do_show(self, line):
-                    """Prints the str rep of an instance"""
-                    line_list = line.split(' ')
-                    if len(line_list) == 0:
-                        return
-                    if len(line_list) == 1:
-                        print("** instance id missing **")
-                    print("** class name missing **")
+    def do_destroy(self, line):
+        """Deletes an instance """
+        if line == "" or line is None:
+            print("** class name missing **")
+        else:
+            line_list = line.split(' ')
+            if line_list[0] not in storage.classes():
+                print("** class doesn't exist **")
+            elif len(line_list) < 2:
+                print("** instance id missing **")
+            else:
+                set_obj = "{}.{}".format(words[0], words[1])
+                if set_obj not in storage.all():
+                    print("** no instance found **")
+                else:
+                    del storage.all()[key]
+                    storage.save()
 
-                            set_obj = "{}.{}".format(words[0], words[1])
-                            if set_obj not in stoarge.all:
-                                print("** no instance found **")
-                            else:
-                                print(storage.all()[set_obj])
 
-                                def do_destroy(self, line):
-                                    """Deletes an instance """
-
-                                    if line is None:
-                                        print("** class name missing **")
-                                    else:
-                                        words = line.split(' ')
-                                        if words[0] is not in storage.classes:
-                                            print("** class doesn't exist **")
-                                        elif len(words) < 2:
-                                            print("** instance id missing **")
-                                        else:
-                                            set_obj = "{}.{}".format(words[0], words[1])
-                                            if set_obj not in storage.all:
-                                                print("** no instance found **")
-                                            else:
-                                                del storage.all()[set_obj]
-                                                storage.save()
-        if __name__ == '__main__':
-            HBNBCommand().cmdloop()
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
