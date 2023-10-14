@@ -22,15 +22,21 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def do_quit(self, line):
-        """To Exit program"""
-
-        return True
+        """Quit command to exit the program"""
+        
+        if line:
+            return True
+        else:
+            return True
 
     def do_EOF(self, line):
-        """The End Of File character"""
+        """EOF command to handle End Of File character"""
 
-        print()
-        return True
+        if line:
+            return True
+        else:
+            print()
+            return True
 
     def emptyline(self):
         """Dosen't execute anything on ENTER"""
