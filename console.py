@@ -214,6 +214,29 @@ class HBNBCommand(cmd.Cmd):
                     line_list[0] + '.')]
             print(len(set_match))
 
+    def update_dict(self, classname, uid, s_dict):
+        """update() with a dictionary."""
+        
+        s = s_dict.replace("'", '"')
+        ld = json.loads(s)
+        if not classname:
+            print("** class name missing **")
+        elif classname not in storage.classes():
+            print("** class doesn't exist **")
+        elif uid is None:
+            print("** instance id missing **")
+        else:
+            set_obj = "{}.{}".format(classname, uid)
+            if set_obj not in storage.all():
+                print("** no instance found **")
+            else:
+                attributes = storage.attributes()[classname]
+                for attribute, value in ld.items():
+                    if attribute in attributes:
+                        value = attributes[attribute](value)
+                    setattr(storage.all()[set_obj], attribute, value)
+                storage.all()[set_obj].save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
