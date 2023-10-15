@@ -21,7 +21,7 @@ class BaseModel:
         self.updated_at = datetime.now()
         if len(kwargs) != 0:
             for key1, key2 in kwargs.items():
-                if key1 == "created_at" or key2 == "updated_at":
+                if key1 == "created_at" or key1 == "updated_at":
                     self.__dict__[key1] = datetime.strptime(key2, Time_format)
                 else:
                     self.__dict__[key1] = key2
@@ -38,6 +38,7 @@ class BaseModel:
         includes the key/value pair of __dict__
         """
         return_dict = self.__dict__.copy()
+        #return_dict["__class__"] = self.__class__.__name__
         return_dict["created_at"] = self.created_at.isoformat()
         return_dict["updated_at"] = self.updated_at.isoformat()
         return_dict["__class__"] = self.__class__.__name__

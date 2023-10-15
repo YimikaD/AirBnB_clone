@@ -80,7 +80,7 @@ class HBNBCommand(cmd.Cmd):
                 if set_obj not in storage.all():
                     print("** no instance found **")
                 else:
-                    del storage.all()[key]
+                    del storage.all()[set_obj]
                     storage.save()
 
     def do_all(self, line):
