@@ -20,8 +20,8 @@ class TestBaseModel_instantiation(unittest.TestCase):
     def test_for_no_args_instantiation(self):
         self.assertEqual(BaseModel, type(BaseModel()))
 
-    #def test_new_instance_stored_in_objects(self):
-        #self.assertIn(BaseModel(), models.storage.all().values())
+    def test_new_instance_stored_in_objects(self):
+        self.assertIn(BaseModel(), models.storage.all().values())
 
     def test_if_id_is_string(self):
         self.assertEqual(str, type(BaseModel().id))
@@ -80,7 +80,8 @@ class TestBaseModel_instantiation(unittest.TestCase):
     def test_for_instantiation_with_args_and_kwargs(self):
         dt = datetime.now()
         dt_iso = dt.isoformat()
-        sample = BaseModel("12", id="345", created_at=dt_iso, updated_at=dt_iso)
+        sample = BaseModel("12", id="345", created_at=dt_iso,
+                           updated_at=dt_iso)
         self.assertEqual(sample.id, "345")
         self.assertEqual(sample.created_at, dt)
         self.assertEqual(sample.updated_at, dt)
