@@ -169,7 +169,7 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def _precmd(self, line):
-        """Intercepts commands to test for class.syntax()"""
+        """test for class.syntax()"""
         
         match = re.search(r"^(\w*)\.(\w+)(?:\(([^)]*)\))$", line)
         if not match:
