@@ -6,6 +6,7 @@ import json
 from models import storage
 import re
 
+
 class HBNBCommand(cmd.Cmd):
 
     """The class def for command interpreter"""
@@ -14,7 +15,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, line):
         """Quit command to exit the program"""
-        
+
         if line:
             return True
         else:
@@ -48,7 +49,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """Prints the str rep of an instance"""
-        
+
         if line == "" or line is None:
             print("** class name missing **")
         else:
@@ -66,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """Deletes an instance """
-        
+
         if line == "" or line is None:
             print("** class name missing **")
         else:
@@ -92,11 +93,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             else:
                 new_lt = [str(obj) for key, obj in storage.all().items()
-                      if obj.__class__.__name__ == line_list[0]]
-                print(new_lt)
-        else:
-            new_list = [str(obj) for key, obj in storage.all().items()]
-            print(new_list)
+                        if obj.__class__.__name__ == line_list[0]]:
+                    print(new_lt)
+                else:
+                    new_list = [str(obj) for key, obj in storage.all().items()]
+                    print(new_list)
 
     def do_update(self, line):
         """Updates an instance by adding or updating attribute """
