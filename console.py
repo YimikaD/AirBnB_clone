@@ -153,7 +153,7 @@ class HBNBCommand(cmd.Cmd):
             "all": self.do_all,
             "show": self.do_show,
             "destroy": self.do_destroy,
-            #"count": self.do_count,
+            "count": self.do_count,
             "update": self.do_update
         }
         match = re.search(r"\.", arg)
@@ -199,6 +199,20 @@ class HBNBCommand(cmd.Cmd):
         comand = method + " " + classname + " " + usid + " " + attr_value
         self.onecmd(comand)
         return comand
+
+    def do_count(self, line):
+        """Counts the instances of a class"""
+
+        line_list = line.split(' ')
+        if not line_list[0]:
+            print("** class name missing **")
+        elif line_list[0] not in storage.classes():
+            print("** class doesn't exist **")
+        else:
+            set_match = [
+                a for a in storage.all() if a.startswith(
+                    line_list[0] + '.')]
+            print(len(set_match))
 
 
 if __name__ == '__main__':
