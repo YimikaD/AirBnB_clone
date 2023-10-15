@@ -145,6 +145,60 @@ class HBNBCommand(cmd.Cmd):
                 setattr(storage.all()[set_obj], attribute, value)
                 storage.all()[set_obj].save()
 
+    def default(self, arg):
+        """when input is invalid"""
+
+        arg_dict = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            #"count": self.do_count,
+            "update": self.do_update
+        }
+        match = re.search(r"\.", arg)
+        if match is not None:
+            arg_l = [arg[:match.span()[0]], arg[match.span()[1]:]]
+            match = re.search(r"\((.*?)\)", arg_l[1])
+            if match is not None:
+                comand = [arg_l[1][:match.span()[0]], match.group()[1:-1]]
+                if comand[0] in arg_dict.keys():
+                    call_cmd = "{} {}".format(arg_l[0], comand[1])
+                    return arg_dict[comand[0]](call_cmd)
+        print("*** Unknown syntax: {}".format(arg))
+        return False
+
+    def _precmd(self, line):
+        """Intercepts commands to test for class.syntax()"""
+        
+        match = re.search(r"^(\w*)\.(\w+)(?:\(([^)]*)\))$", line)
+        if not match:
+            return line
+        classname = match.group(1)
+        method = match.group(2)
+        args = match.group(3)
+        match_args = re.search('^"([^"]*)"(?:, (.*))?$', args)
+        if match_args:
+            usid = match_args.group(1)
+            attr_dict = match_args.group(2)
+        else:
+            usid = args
+            attr_dict = False
+
+        attr_value = ""
+        if method == "update" and attr_dict:
+            match_dict = re.search('^({.*})$', attr_dict)
+            if match_dict:
+                self.update_dict(classname, usid, match_dict.group(1))
+                return ""
+            match_attr_value = re.search(
+                '^(?:"([^"]*)")?(?:, (.*))?$', attr_dict)
+            if match_attr_value:
+                attr_value = (match_attr_value.group(
+                    1) or "") + " " + (match_attr_value.group(2) or "")
+        comand = method + " " + classname + " " + usid + " " + attr_value
+        self.onecmd(comand)
+        return comand
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
