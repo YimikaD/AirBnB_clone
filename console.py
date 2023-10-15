@@ -93,11 +93,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             else:
                 new_lt = [str(obj) for key, obj in storage.all().items()
-                        if obj.__class__.__name__ == line_list[0]]:
-                    print(new_lt)
-                else:
-                    new_list = [str(obj) for key, obj in storage.all().items()]
-                    print(new_list)
+                        if obj.__class__.__name__ == line_list[0]]
+                print(new_lt)
+        else:
+            new_list = [str(obj) for key, obj in storage.all().items()]
+            print(new_list)
 
     def do_update(self, line):
         """Updates an instance by adding or updating attribute """
