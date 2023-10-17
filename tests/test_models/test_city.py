@@ -33,6 +33,6 @@ class TestUser(unittest.TestCase):
         """Test the type of name"""
         new_city = City()
         name = getattr(new_city, "state_id")
-        self.assertInstance(name, str)
+        self.assertIsInstance(name, str)
 if __name__ == "__main__":
     unittest.main()
