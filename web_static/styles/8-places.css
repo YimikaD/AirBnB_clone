@@ -40,15 +40,29 @@ article, h2{
 
 .information {
     height: 80px;
-    border-bottom: 1px solid #DDDDDD 1px;
-    border-top: 1px solid #DDDDDD 1px;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #DDDDDD;
 }
 
-.max_guest, .number_rooms, .number_bathrooms {
+.max_guest {
   width: 100px;
   height: 100%;
   display: inline-block;
-  background-position: 50% 20px;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+.number_rooms {
+  width: 100px;
+  height: 100%;
+  display: inline-block;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+.number_bathrooms {
+  width: 100px;
+  height: 100%;
+  display: inline-block;
+  background-position: top center;
   background-repeat: no-repeat;
 }
 
@@ -63,10 +77,14 @@ article, h2{
   }
 
   .user {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    display: flex;
+    padding-top: 20px;
+    font-size: 14px;
+    font-weight: 100;
   }
 
   .description {
   text-align: left;
+  font-weight: 100;
+  font-size: 12px;
 }
